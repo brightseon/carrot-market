@@ -1,32 +1,35 @@
 import { FieldErrors, useForm } from 'react-hook-form';
 
-// Better Errors (set, clear)
-// Have control over inputs
-
 interface LoginForm {
     username: string;
     password: string;
     email: string;
+    errors?: string;
 }
 
 export default function Forms() {
     const {
         register,
         handleSubmit,
-        formState: { errors }
+        formState: { errors },
+        watch,
+        setError,
+        setValue,
+        reset,
+        resetField
     } = useForm<LoginForm>({
         mode: 'onChange'
     });
 
     const onValid = (data: LoginForm) => {
         console.log('im valid bby');
+        setError('username', { message: 'Taken username' });
+        resetField('password');
     };
 
     const onInvalid = (error: FieldErrors) => {
         console.log(error);
     };
-
-    console.log(errors);
 
     return (
         <form onSubmit={handleSubmit(onValid, onInvalid)}>
@@ -38,6 +41,7 @@ export default function Forms() {
                 type={'text'}
                 placeholder="Username"
             />
+            {errors.username?.message}
             <input
                 {...register('email', {
                     required: 'Email is required',
@@ -56,6 +60,7 @@ export default function Forms() {
                 placeholder="Password"
             />
             <input type={'submit'} value="Create Account" />
+            {errors.errors?.message}
         </form>
     );
 }
