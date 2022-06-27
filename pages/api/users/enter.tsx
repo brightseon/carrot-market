@@ -30,45 +30,22 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseType>) 
     });
 
     if (phone) {
-        const message = await twilioClient.messages.create({
-            messagingServiceSid: process.env.TWILIO_MSID,
-            to: process.env.MY_PHONE!,
-            body: `Your login token is ${payload}.`
-        });
-        console.log(message);
+        // const message = await twilioClient.messages.create({
+        //     messagingServiceSid: process.env.TWILIO_MSID,
+        //     to: process.env.MY_PHONE!,
+        //     body: `Your login token is ${payload}.`
+        // });
+        // console.log(message);
     } else if (email) {
-        const email = await mail.send({
-            from: 'public.seon@gmail.com',
-            to: 'public.seon@gmail.com',
-            subject: 'Your Carrot Market Verification Email',
-            text: `Your token is ${payload}`,
-            html: `<strong>Your token is ${payload}</strong>`
-        });
-        console.log(email);
+        // const email = await mail.send({
+        //     from: 'public.seon@gmail.com',
+        //     to: 'public.seon@gmail.com',
+        //     subject: 'Your Carrot Market Verification Email',
+        //     text: `Your token is ${payload}`,
+        //     html: `<strong>Your token is ${payload}</strong>`
+        // });
+        // console.log(email);
     }
-    // if (email) {
-    //     user = await client.user.findUnique({ where: { email } });
-
-    //     if (user) console.log('found it.');
-    //     if (!user) {
-    //         console.log('Did not find. Will create');
-    //         user = await client.user.create({ data: { name: 'Anonymous', email } });
-    //     }
-
-    //     console.log(user);
-    // }
-
-    // if (phone) {
-    //     user = await client.user.findUnique({ where: { phone: +phone } });
-
-    //     if (user) console.log('found it.');
-    //     if (!user) {
-    //         console.log('Did not find. Will create');
-    //         user = await client.user.create({ data: { name: 'Anonymous', phone: +phone } });
-    //     }
-
-    //     console.log(user);
-    // }
 
     return res.json({ ok: true });
 }
